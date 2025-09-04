@@ -13,5 +13,5 @@ SkyCAT is a .NET library and server for controlling radios via CAT commands.
 - [SkyCAT Library](library.md)
 - [skycatd.exe](skycatd.md)
 - [SkyCAT Commandset File Format](commandset-format.md)
-- [Source Code](source.md)
+- [Source Code](https://github.com/yourusername/skycat)
 - [Download](download.md)
