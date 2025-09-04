@@ -1,5 +1,5 @@
 remote_theme: just-the-docs/just-the-docs
-title: SkyCat Documentation
-description: Documentation for the SkyCat radio control library
+title: SkyCAT
+description: Documentation for SkyCAT, a radio CAT control engine
 aux_links:
-  "SkyCat on GitHub": "https://github.com/yourusername/skycat"
+  "SkyCat on GitHub": "https://github.com/VE3NEA/SkyCAT"
