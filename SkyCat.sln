@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "skycatd", "skycatd\skycatd.csproj", "{EB1DB4B0-6C13-47D2-8FA6-7702FBA51C12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyCat", "SkyCat\SkyCat.csproj", "{0BF6D7DD-3404-4628-AF15-8930D7AA5FA2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB1DB4B0-6C13-47D2-8FA6-7702FBA51C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1DB4B0-6C13-47D2-8FA6-7702FBA51C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB1DB4B0-6C13-47D2-8FA6-7702FBA51C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB1DB4B0-6C13-47D2-8FA6-7702FBA51C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BF6D7DD-3404-4628-AF15-8930D7AA5FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BF6D7DD-3404-4628-AF15-8930D7AA5FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BF6D7DD-3404-4628-AF15-8930D7AA5FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BF6D7DD-3404-4628-AF15-8930D7AA5FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15FC1DAF-EA67-4F8B-A34E-E41DE92A1AF3}
+	EndGlobalSection
+EndGlobal

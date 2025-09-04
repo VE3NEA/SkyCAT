@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "skycatd": {
+      "commandName": "Project",
+      "commandLineArgs": "-m \"IC-9700\" -r COM9 -vvv"
+    }
+  }
+}
