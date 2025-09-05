@@ -31,6 +31,13 @@ See the [SkyCAT Commandset File Format](commandset-format.md) for a description 
 
 ## Supported Radios
 
+SkyCAT supports the radios for which the commandset files are available. A number of such files comes with the official distribution of the software, see the [Rigs](https://github.com/VE3NEA/SkyCAT/tree/master/Rigs) folder on GitHub.
+Some third party files, created by the users, may also be available.
+
+Creating a new commandset file is not difficult, all one needs for that is a text editor and access to the radio for testing. The format of the file is described in the
+ [SkyCAT Commandset File Format](commandset-format.md) document.
+
+
 
 ## See Also
 

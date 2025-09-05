@@ -131,7 +131,6 @@ namespace SkyCat
       return $"[{string.Join(",\n", list)}]";
     }
 
-
     public string ListCapabilities(string? model = null)
     {
       model ??= RadioName;
@@ -430,7 +429,7 @@ namespace SkyCat
       return value.ToString();
     }
 
-    public static string NullableBytesToString(byte?[] bytes)
+    private static string NullableBytesToString(byte?[] bytes)
     {
       return string.Join("-", bytes.Select(b => b.HasValue ? b.Value.ToString("X2") : "xx"));
     }
@@ -442,7 +441,6 @@ namespace SkyCat
         if (mask[i] != null && bytes[i] != mask[i]) return false;
       return true;
     }
-
 
     private void ApplyMask(byte[] paramBytes, byte[] mask)
     {
