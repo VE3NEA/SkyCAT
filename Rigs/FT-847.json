@@ -1,0 +1,260 @@
+{
+  "id": 1001,
+  "echo": false,
+  "default_baud_rate": 57600,
+  "cross_band_split": true,
+
+  "duplex": {
+    "setup": {
+      "messages": [
+        { "command": ["00", "00", "00", "00", "00"], "comment": "CAT ON" },
+        { "command": ["89", "00", "00", "00", "09"], "comment": "Repeater Shift = Simplex" },
+        { "command": ["00", "00", "00", "00", "4E"], "comment": "Satellite mode ON" }
+      ],
+      "restriction": "when_setting_up"
+    },
+    "read_rx_frequency": {
+      "messages": [
+        {
+          "command": ["00", "00", "00", "00", "13"],
+          "reply": [null, null, null, null, null],          
+          "reply_param": { "format": "BCD_BE", "length": 4, "step": 10 }
+        }
+      ]
+    },
+    "read_tx_frequency": {
+      "messages": [
+        {
+          "comment": "todo: available? needs testing",
+          "command": ["00", "00", "00", "00", "23"],
+          "reply": [null, null, null, null, null],          
+          "reply_param": { "format": "BCD_BE", "length": 4, "step": 10 }
+        }
+      ]
+    },
+    "read_rx_mode": {
+      "messages": [
+        {
+          "command": ["00", "00", "00", "00", "13"],
+          "reply": [null, null, null, null, null],
+          "reply_param": { 
+            "format": "enum", 
+            "start": 4, 
+            "values": { 
+              "LSB": ["00"], "USB": ["01"], "CW": ["02"],  "CW-R": ["03"], "AM": ["04"], "FM": ["08"],  
+              "CW-N": ["82"], "CW-N-R": ["83"], "AM-N": ["84"], "FM-N": ["88"] 
+            } 
+          }
+        }
+      ]
+    },
+
+    "read_tx_mode": {
+      "messages": [
+        {
+          "command": ["00", "00", "00", "00", "23"],
+          "reply": [null, null, null, null, null],
+          "reply_param": { 
+            "format": "enum", 
+            "start": 4, 
+            "values": { 
+              "LSB": ["00"], "USB": ["01"], "CW": ["02"],  "CW-R": ["03"], "AM": ["04"], "FM": ["08"],  
+              "CW-N": ["82"], "CW-N-R": ["83"], "AM-N": ["84"], "FM-N": ["88"] 
+            }             
+          }
+        }
+      ]
+    },
+    "read_ptt": {
+      "messages": [
+        {
+          "command": ["00", "00", "00", "00", "F7"],
+          "reply": [null],
+          "reply_param": { "format": "enum", "mask": ["80"], "values": { "ON": ["00"], "OFF": ["80"] } }
+        }
+      ]
+    },
+    "write_rx_frequency": {
+      "messages": [
+        {
+          "command": [null, null, null, null, "11"],
+          "command_param": { "format": "BCD_BE", "step": 10 }
+        }
+      ]
+    },
+    "write_tx_frequency": {
+      "messages": [
+        {
+          "command": [null, null, null, null, "21"],
+          "command_param": { "format": "BCD_BE", "step": 10 }
+        }
+      ]
+    },
+    "write_rx_mode": {
+      "messages": [
+        {
+          "command": [null, "00", "00", "00", "17"],
+          "command_param": {
+            "format": "enum",
+            "values": { 
+              "LSB": ["00"], "USB": ["01"], "CW": ["02"],  "CW-R": ["03"], "AM": ["04"], "FM": ["08"],  
+              "CW-N": ["82"], "CW-N-R": ["83"], "AM-N": ["84"], "FM-N": ["88"] 
+            }             
+          }
+        }
+      ]
+    },
+    "write_tx_mode": {
+      "messages": [
+        {
+          "command": [null, "00", "00", "00", "27"],
+          "command_param": {
+            "format": "enum",
+            "values": { 
+              "LSB": ["00"], "USB": ["01"], "CW": ["02"],  "CW-R": ["03"], "AM": ["04"], "FM": ["08"],  
+              "CW-N": ["82"], "CW-N-R": ["83"], "AM-N": ["84"], "FM-N": ["88"] 
+            }             
+          }
+        }
+      ]
+    },
+    "write_ptt_off": {
+      "messages": [
+        { "command": ["00", "00", "00", "00", "88"], "comment": "PTT OFF" }
+      ]
+    }
+,
+    "write_ptt_on": {
+      "messages": [
+        { "command": ["00", "00", "00", "00", "08"], "comment": "PTT ON" }
+      ]
+    }
+  },
+  
+  "simplex": {
+    "setup": {
+      "messages": [
+        { "command": ["00", "00", "00", "00", "00"], "comment": "CAT ON" },
+        { "command": ["89", "00", "00", "00", "09"], "comment": "Repeater Shift = Simplex" },
+        { "command": ["00", "00", "00", "00", "8E"], "comment": "Satellite mode OFF" }
+      ],
+      "restriction": "when_setting_up"
+    },
+    "read_rx_frequency": {
+      "messages": [
+        {
+          "command": ["00", "00", "00", "00", "03"],
+          "reply": [null, null, null, null, null],          
+          "reply_param": { "format": "BCD_BE", "length": 4, "step": 10 }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+    "read_tx_frequency": {
+      "messages": [
+        {
+          "comment": "todo: is available? test!",
+          "command": ["00", "00", "00", "00", "03"],
+          "reply": [null, null, null, null, null],
+          "reply_param": { "format": "BCD_BE", "length": 4, "step": 10 }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+    "read_rx_mode": {
+      "messages": [
+        {
+          "command": ["00", "00", "00", "00", "03"],
+          "reply": [null, null, null, null, null],
+          "reply_param": { 
+            "format": "enum", 
+            "start": 4, 
+            "values": { 
+              "LSB": ["00"], "USB": ["01"], "CW": ["02"],  "CW-R": ["03"], "AM": ["04"], "FM": ["08"],  
+              "CW-N": ["82"], "CW-N-R": ["83"], "AM-N": ["84"], "FM-N": ["88"] 
+            } 
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+    "read_tx_mode": {
+      "messages": [
+        {
+          "comment": "todo: is available? test!",
+          "command": ["00", "00", "00", "00", "03"],
+          "reply": [null, null, null, null, null],
+          "reply_param": { 
+            "format": "enum", 
+            "start": 4, 
+            "values": { 
+              "LSB": ["00"], "USB": ["01"], "CW": ["02"],  "CW-R": ["03"], "AM": ["04"], "FM": ["08"],  
+              "CW-N": ["82"], "CW-N-R": ["83"], "AM-N": ["84"], "FM-N": ["88"] 
+            } 
+          }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+    "read_ptt": {
+      "messages": [
+        {
+          "command": ["00", "00", "00", "00", "F7"],
+          "reply": [null],
+          "reply_param": { "format": "enum", "mask": ["80"], "values": { "ON": ["00"], "OFF": ["80"] } }
+        }
+      ]
+    },
+    "write_rx_frequency": {
+      "messages": [
+        {
+          "command": [null, null, null, null, "01"],
+          "command_param": { "format": "BCD_BE", "step": 10 }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+    "write_tx_frequency": {            
+      "messages": [
+        {
+          "comment": "todo: is available? test!",
+          "command": [null, null, null, null, "01"],
+          "command_param": { "format": "BCD_BE", "step": 10 }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+
+    "write_rx_mode": {
+      "messages": [
+        {
+          "command": [null, "00", "00", "00", "07"],
+          "command_param": { "format": "enum", "values": { "LSB": ["00"], "USB": ["01"], "CW": ["02"], "FM": ["08"] } }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+    "write_tx_mode": {
+      "messages": [
+        {
+          "comment": "todo: is available? test!",
+          "command": [null, "00", "00", "00", "07"],
+          "command_param": { "format": "enum", "values": { "LSB": ["00"], "USB": ["01"], "CW": ["02"], "FM": ["08"] } }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+
+    "write_ptt_off": {
+      "messages": [
+        { "command": ["00", "00", "00", "00", "88"], "comment": "PTT OFF" }
+      ]
+    }
+,
+    "write_ptt_on": {
+      "messages": [
+        { "command": ["00", "00", "00", "00", "08"], "comment": "PTT ON" }
+      ]
+    }
+  }
+}

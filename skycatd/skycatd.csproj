@@ -10,6 +10,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\Rigs\FT-817.json" Link="Rigs\FT-817.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\FT-847.json" Link="Rigs\FT-847.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\FT-991A.json" Link="Rigs\FT-991A.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\IC-705.json" Link="Rigs\IC-705.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\IC-706MKIIG.json" Link="Rigs\IC-706MKIIG.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\IC-905.json" Link="Rigs\IC-905.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\IC-910.json" Link="Rigs\IC-910.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\IC-9700.json" Link="Rigs\IC-9700.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Rigs\TS-2000.json" Link="Rigs\TS-2000.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.7" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.7" />
@@ -22,6 +52,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SkyCat\SkyCat.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Rigs\" />
   </ItemGroup>
 
 </Project>
