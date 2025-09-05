@@ -41,8 +41,8 @@ Creating a new commandset file is not difficult, all one needs for that is a tex
 
 ## See Also
 
-- [SkyCAT Library](library.md)
+- [SkyCAT Engine](library.md)
 - [skycatd.exe](skycatd.md)
-- [SkyCAT Commandset File Format](commandset-format.md)
-- [Source Code](https://ve3nea.github.io/SkyCAT/index.html)
+- [SkyCAT File Format](commandset-format.md)
+- [Source Code](source.md)
 - [Download](download.md)
