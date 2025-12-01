@@ -1,0 +1,185 @@
+{
+  "id": 3011,
+  "echo": true,
+  "default_baud_rate": 19200,
+  "cross_band_split": false,
+  "bad_reply": ["FE", "FE", "E0", "58", "FA", "FD"],
+
+  "comment": "this radio supports split operation but setting the TX frequency requires vfo swapping - useless for SAT work",
+
+  "split": {
+    "setup": {
+      "messages": [
+        { "command": ["FE", "FE", "58", "E0", "0F", "01", "FD"], "reply": [ "FE", "FE", "E0", "58", "FB", "FD"], "comment": "Split ON" }
+      ],
+      "restriction": "when_setting_up"
+    },
+
+    "read_rx_frequency": {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "03", "FD"],
+          "reply": ["FE", "FE", "E0", "58", "03", null, null, null, null, null, "FD"],
+          "reply_param": {"format": "BCD_LE"}
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_frequency": null,
+
+    "read_rx_mode": {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "04", "FD"],
+          "reply": ["FE", "FE", "E0", "58", "04", null, "FD"],
+          "reply_param": {
+            "format": "Enum", "values": { 
+              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], "FM": [ "05" ], "WFM": [ "06" ]
+            }
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_mode": null,
+
+    "read_ptt": null,
+
+    "write_rx_frequency":  {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "05", null, null, null, null, null, "FD"],
+          "reply": ["FE", "FE", "E0", "58", "FB", "FD"],
+          "command_param": {"format": "BCD_LE"}
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "write_tx_frequency":  {
+      "messages": [
+        { "command": ["FE", "FE", "58", "E0", "07", "B0", "FD"], "reply": [ "FE", "FE", "E0", "58", "FB", "FD"], "comment": "Swap A/B" },
+        {
+          "command": ["FE", "FE", "58", "E0", "05", null, null, null, null, null, "FD"],
+          "reply": ["FE", "FE", "E0", "58", "FB", "FD"],
+          "command_param": {"format": "BCD_LE"}
+        },
+        { "command": ["FE", "FE", "58", "E0", "07", "B0", "FD"], "reply": [ "FE", "FE", "E0", "58", "FB", "FD"], "comment": "Swap A/B" }
+      ],
+      "restriction": "when_setting_up"
+    },
+
+    "write_rx_mode": {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "06", null, "FD"],
+          "reply": ["FE", "FE", "E0", "58", "FB", "FD"],
+          "command_param": { 
+            "format": "Enum", "values": { 
+              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], "FM": [ "05" ], "WFM": [ "06" ]
+            }
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "write_tx_mode": {
+      "messages": [
+        { "command": ["FE", "FE", "58", "E0", "07", "B0", "FD"], "reply": [ "FE", "FE", "E0", "58", "FB", "FD"], "comment": "Swap A/B" },
+        {
+          "command": ["FE", "FE", "58", "E0", "06", null, "FD"],
+          "reply": ["FE", "FE", "E0", "58", "FB", "FD"],
+          "command_param": { 
+            "format": "Enum", "values": { 
+              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], "FM": [ "05" ], "WFM": [ "06" ]
+            }
+          }
+        },
+        { "command": ["FE", "FE", "58", "E0", "07", "B0", "FD"], "reply": [ "FE", "FE", "E0", "58", "FB", "FD"], "comment": "Swap A/B" }
+      ],
+      "restriction": "when_setting_up"
+    },
+
+    "write_ptt_off": null,
+
+    "write_ptt_on": null
+  },
+
+  "simplex": {
+    "setup": {
+      "messages": [
+        { "command": ["FE", "FE", "58", "E0", "0F", "00", "FD"], "reply": [ "FE", "FE", "E0", "58", "FB", "FD"], "comment": "Split OFF" }
+      ],
+      "restriction": "when_setting_up"
+    },
+
+    "read_rx_frequency": {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "03", "FD"],
+          "reply": ["FE", "FE", "E0", "58", "03", null, null, null, null, null, "FD"],
+          "reply_param": {"format": "BCD_LE"}
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_frequency": null,
+
+    "read_rx_mode": {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "04", "FD"],
+          "reply": ["FE", "FE", "E0", "58", "04", null, "FD"],
+          "reply_param": {
+            "format": "Enum", "values": { 
+              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], "FM": [ "05" ], "WFM": [ "06" ]
+            }
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_mode": null,
+
+    "read_ptt": null,
+
+    "write_rx_frequency":  {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "05", null, null, null, null, null, "FD"],
+          "reply": ["FE", "FE", "E0", "58", "FB", "FD"],
+          "command_param": {"format": "BCD_LE"}
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "write_tx_frequency": null,
+
+    "write_rx_mode": {
+      "messages": [
+        {
+          "command": ["FE", "FE", "58", "E0", "06", null, "FD"],
+          "reply": ["FE", "FE", "E0", "58", "FB", "FD"],
+          "command_param": { 
+            "format": "Enum", "values": { 
+              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], "FM": [ "05" ], "WFM": [ "06" ]
+            }
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "write_tx_mode": null,
+
+    "write_ptt_off": null,
+
+    "write_ptt_on": null
+  }
+}

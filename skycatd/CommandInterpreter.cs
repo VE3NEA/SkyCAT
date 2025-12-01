@@ -76,11 +76,6 @@ namespace skycatd
         CommandSender.SetupRadio(mode);
         return "RPRT 0";
       }
-      catch (InvalidReplyException ex)
-      {
-        CommandSender.Log?.LogError($"Setup command failed: {ex.Message}");
-        return "RPRT -1";
-      }
       catch (Exception ex)
       {
         CommandSender.Log?.LogError(ex, $"Setup command failed: {ex.Message}");

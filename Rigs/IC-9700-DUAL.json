@@ -11,29 +11,14 @@
         { "command": ["FE", "FE", "A2", "E0", "1A", "05", "01", "30", "00", "FD"], "reply": ["FE", "FE", "E0", "A2", "FB", "FD"], "comment": "usb echo off" },
         { "command": ["FE", "FE", "A2", "E0", "1A", "05", "01", "31", "00", "FD"], "reply": ["FE", "FE", "E0", "A2", "FB", "FD"], "comment": "com echo off" },
         { "command": ["FE", "FE", "A2", "E0", "1A", "05", "01", "27", "00", "FD"], "reply": ["FE", "FE", "E0", "A2", "FB", "FD"], "comment": "transceive off" },
-        { "command": ["FE", "FE", "A2", "E0", "16", "59", "00", "FD"], "reply": ["FE", "FE", "E0", "A2", "FB", "FD"], "ignore_error": true, "comment": "dual watch off" },
+        { "command": ["FE", "FE", "A2", "E0", "16", "5A", "00", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "sat mode off" },
         { "command": ["FE", "FE", "A2", "E0", "0F", "00", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "split off" },
-        { "command": ["FE", "FE", "A2", "E0", "16", "5A", "01", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "sat mode on" }
+        { "command": ["FE", "FE", "A2", "E0", "16", "59", "01", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "dual watch on" }
       ],
       "restriction": "when_setting_up"
     },
 
-    "read_rx_frequency":  {
-      "messages": [
-        {          
-          "comment": "select main receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
-          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
-        },
-        {
-          "command": ["FE", "FE", "A2", "E0", "03", "FD"],
-          "reply": ["FE", "FE", "E0", "A2", "03", null, null, null, null, null, "FD"],
-          "reply_param": {"format": "BCD_LE"}
-        }
-      ]
-    },
-
-    "read_tx_frequency": {
+    "read_rx_frequency": {
       "messages": [
         {
           "comment": "select sub receiver",
@@ -48,11 +33,26 @@
       ]
     },
 
+    "read_tx_frequency":  {
+      "messages": [
+        {          
+          "comment": "select main receiver",
+          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
+          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
+        },
+        {
+          "command": ["FE", "FE", "A2", "E0", "03", "FD"],
+          "reply": ["FE", "FE", "E0", "A2", "03", null, null, null, null, null, "FD"],
+          "reply_param": {"format": "BCD_LE"}
+        }
+      ]
+    },
+
     "read_rx_mode": {
       "messages": [
         {
           "comment": "select sub receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
+          "command": ["FE", "FE", "A2", "E0", "07", "D2", "01", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
         {
@@ -72,20 +72,16 @@
     "read_tx_mode": {
       "messages": [
         {
-          "comment": "select sub receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "01", "FD"],
-          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
-        },
-        {
-          "command": ["FE", "FE", "A2", "E0", "04", "FD"],
+          "command": ["FE", "FE", "A2", "E0", "26", "00", "FD"],
           "reply_param": {
             "format": "Enum", "values": { 
-              "LSB": [ "00", "00" ], "USB": [ "01", "00" ], "AM": [ "02", "00" ], "CW": [ "03", "00" ], 
-              "RTTY": [ "04", "00" ], "FM": [ "05", "00" ], "CW-R": [ "07", "00" ], "RTTY-R": [ "08", "00" ]
+              "LSB": [ "00", "00", "00" ], "LSB-D": [ "00", "01", "00" ], "USB": [ "01", "00", "00" ], "USB-D": [ "01", "01", "00" ],
+              "AM": [ "02", "00", "00" ], "CW": [ "03", "00", "00" ], "CW-R": [ "07", "00", "00" ],
+              "RTTY": [ "04", "00", "00" ], "RTTY-R": [ "08", "00", "00" ], "FM": [ "05", "00", "00" ], "FM-D": [ "05", "01", "00" ]
             },
-          "mask":  ["FF",  "00"]
+          "mask":  ["FF", "FF", "00"]
           },
-          "reply": ["FE", "FE", "E0", "A2", "04",  null, null, "FD"]
+          "reply": ["FE", "FE", "E0", "A2", "26", "00", null, null, null, "FD"]
         }
       ]
     },
@@ -100,18 +96,19 @@
       ]
     },
 
-    "write_rx_frequency": {
+    "write_rx_frequency":  {
       "messages": [
-        {          
-          "comment": "select main receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
+        {
+          "comment": "select sub receiver",
+          "command": ["FE", "FE", "A2", "E0", "07", "D2", "01", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
         {
           "command": ["FE", "FE", "A2", "E0", "05", null, null, null, null, null, "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"],
           "command_param": {"format": "BCD_LE"}
-        }
+        },
+        { "command": ["FE", "FE", "A2", "E0", "0f", "00", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "split off" }
       ],
       "alt_messages": [
         {
@@ -119,31 +116,33 @@
           "command": ["FE", "FE", "A2", "E0", "07", "B0", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
-        {          
-          "comment": "select main receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
+        {
+          "comment": "select sub receiver",
+          "command": ["FE", "FE", "A2", "E0", "07", "D2", "01", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
         {
           "command": ["FE", "FE", "A2", "E0", "05", null, null, null, null, null, "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"],
           "command_param": {"format": "BCD_LE"}
-        }
+        },
+        { "command": ["FE", "FE", "A2", "E0", "0f", "00", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "split off" }
       ]
     },
 
-    "write_tx_frequency":  {
+    "write_tx_frequency": {
       "messages": [
-        {
-          "comment": "select sub receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "01", "FD"],
+        {          
+          "comment": "select main receiver",
+          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
         {
           "command": ["FE", "FE", "A2", "E0", "05", null, null, null, null, null, "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"],
           "command_param": {"format": "BCD_LE"}
-        }
+        },
+        { "command": ["FE", "FE", "A2", "E0", "0f", "00", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "split off" }  
       ],
       "alt_messages": [
         {
@@ -151,83 +150,77 @@
           "command": ["FE", "FE", "A2", "E0", "07", "B0", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
-        {
-          "comment": "select sub receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "01", "FD"],
+        {          
+          "comment": "select main receiver",
+          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
         {
           "command": ["FE", "FE", "A2", "E0", "05", null, null, null, null, null, "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"],
           "command_param": {"format": "BCD_LE"}
-        }
+        },
+        { "command": ["FE", "FE", "A2", "E0", "0f", "00", "FD"], "reply": [ "FE", "FE", "E0", "A2", "FB", "FD"], "comment": "split off" } 
       ]
     },
 
     "write_rx_mode": {
       "messages": [
         {
-          "comment": "select main receiver",
-          "command": ["FE", "FE", "A2", "E0", "07", "D2", "00", "FD"],
+          "comment": "swap main and sub receivers",
+          "command": ["FE", "FE", "A2", "E0", "07", "B0", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
         {
-          "comment": "set mode",
-          "command": ["FE", "FE", "A2", "E0", "06", null, "01", "FD"],
-          "command_param": { "format": "Enum", "values": 
-            {
-              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], 
-              "FM": [ "05" ], "CW-R": [ "07" ], "RTTY-R": [ "08" ], "DV": [ "17" ], "DD": ["22" ],
-              "LSB-D": [ "00" ], "USB-D": [ "01" ], "FM-D": [ "05" ]
-            }
+          "command": ["FE", "FE", "A2", "E0", "26", "00", null, null, "01", "FD"],
+          "command_param": { 
+            "format": "Enum", 
+            "values": { 
+              "LSB": [ "00", "00" ], "USB": [ "01", "00" ], "AM": [ "02", "00" ], "CW": [ "03", "00" ], "RTTY": [ "04", "00" ], 
+              "FM": [ "05", "00" ], "CW-R": [ "07", "00" ], "RTTY-R": [ "08", "00" ], "DV": [ "17", "00" ], "DD": ["22", "00" ],
+              "LSB-D": [ "00", "01" ], "USB-D": [ "01", "01" ], "FM-D": [ "05", "01" ]}
           },
-          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]        
-        },        
+          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
+        },
         {
-          "comment": "set data mode",
-          "command": ["FE", "FE", "A2", "E0", "1A", "06", null, "01", "FD"],
-          "command_param": { "format": "Enum", "values": 
-            {
-              "LSB": [ "00" ], "USB": [ "00" ], "AM": [ "00" ], "CW": [ "00" ], "RTTY": [ "00" ], 
-              "FM": [ "00" ], "CW-R": [ "00" ], "RTTY-R": [ "00" ], "DV": [ "00" ], "DD": ["00" ],
-              "LSB-D": [ "01" ], "USB-D": [ "01" ], "FM-D": [ "01" ]
-            }
-          },
-          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]        
+          "comment": "swap main and sub receivers",
+          "command": ["FE", "FE", "A2", "E0", "07", "B0", "FD"],
+          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         }
-      ]
-    },
-
-    "write_tx_mode": {
-      "messages": [
+      ],
+      "alt_messages": [
         {
           "comment": "select sub receiver",
           "command": ["FE", "FE", "A2", "E0", "07", "D2", "01", "FD"],
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         },
         {
-          "comment": "set mode",
           "command": ["FE", "FE", "A2", "E0", "06", null, "01", "FD"],
           "command_param": { "format": "Enum", "values": 
             {
               "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], 
-              "FM": [ "05" ], "CW-R": [ "07" ], "RTTY-R": [ "08" ], "DV": [ "17" ], "DD": ["22" ],
-              "LSB-D": [ "00" ], "USB-D": [ "01" ], "FM-D": [ "05" ]
+              "FM": [ "05" ], "CW-R": [ "07" ], "RTTY-R": [ "08" ], "DV": [ "17" ], "DD": ["22" ]
             }
           },
           "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]        
-        },        
+        }
+      ],
+      "restriction": "when_setting_up"
+    },
+
+    "write_tx_mode": {
+      "messages": [
         {
-          "comment": "set data mode",
-          "command": ["FE", "FE", "A2", "E0", "1A", "06", null, "01", "FD"],
-          "command_param": { "format": "Enum", "values": 
-            {
-              "LSB": [ "00" ], "USB": [ "00" ], "AM": [ "00" ], "CW": [ "00" ], "RTTY": [ "00" ], 
-              "FM": [ "00" ], "CW-R": [ "00" ], "RTTY-R": [ "00" ], "DV": [ "00" ], "DD": ["00" ],
-              "LSB-D": [ "01" ], "USB-D": [ "01" ], "FM-D": [ "01" ]
+          "command": ["FE", "FE", "A2", "E0", "26", "00", null, null, "01", "FD"],
+          "command_param": { 
+            "format": "Enum", 
+            "values": { 
+              "LSB": [ "00", "00" ], "USB": [ "01", "00" ], "AM": [ "02", "00" ], "CW": [ "03", "00" ], "RTTY": [ "04", "00" ], 
+              "FM": [ "05", "00" ], "CW-R": [ "07", "00" ], "RTTY-R": [ "08", "00" ], "DV": [ "17", "00" ], "DD": ["22", "00" ],
+              "LSB-D": [ "00", "01" ], "USB-D": [ "01", "01" ], "FM-D": [ "05", "01" ]
             }
           },
-          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]        
+          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]
         }
       ]
     },

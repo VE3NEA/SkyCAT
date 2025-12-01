@@ -1,0 +1,438 @@
+{
+  "comment": "this file has not been tested and may contain errors. Please test and correct!",
+  "id": 2014,
+  "echo": false,
+  "default_baud_rate": 57600,
+  "cross_band_split": false,
+
+  "duplex": {
+    "setup": {
+      "messages": [
+        { "command": ["41", "49", "3B"], "comment": "AI0; Auto Info OFF" },
+        { "command": ["52", "41", "31", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, uplink=Main" }
+      ],
+      "restriction": "when_setting_up"
+    },
+
+    "read_rx_frequency": {
+      "messages": [
+        {
+          "comment": "read RX frequency",
+          "command": ["46", "41", "3B"], 
+          "reply": ["46", "41", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
+          "reply_param": { "format": "text" }
+        }
+      ]
+    },
+
+    "read_tx_frequency": {
+      "messages": [
+        {
+          "comment": "read TX frequency",
+          "command": ["46", "42", "3B"], 
+          "reply": ["46", "42", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
+          "reply_param": { "format": "text" }
+        }
+      ]
+    },
+
+    "read_rx_mode": {
+      "messages": [
+        {
+          "comment": "read RX mode. todo: can read when transmitting?",
+          "command": ["4D", "44", "3B"],
+          "reply": ["4D", "44", null, "3B"],
+          "reply_param": { 
+            "format": "enum", 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_mode": {
+      "messages": [
+        {
+          "comment": "read TX mode. todo: select-sub, read, select-main",
+          "command": ["4D", "44", "3B"],
+          "reply": ["4D", "44", null, "3B"],
+          "reply_param": { 
+            "format": "enum", 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+
+    "read_ptt": {
+      "messages": [
+        {
+          "comment": "read PTT",
+          "command": ["49", "47", "3B"],
+          "reply": ["49", "47", 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            "3B"],
+          "reply_param": { "format": "enum", "start": 28, "length": 1,"values": { "ON": ["31"], "OFF": ["30"] } }
+        }
+      ]
+    },
+
+    "write_rx_frequency": {
+      "messages": [
+        {
+          "comment": "write RX frequency",
+          "command": ["46", "41", null, null, null, null,  null,  null,  null,  null,  null,  null,  null, "3B"],
+          "command_param": { "format": "Text" }
+        }
+      ]
+    },
+
+    "write_tx_frequency": {
+      "messages": [
+        {
+          "comment": "write TX frequency",
+          "command": ["46", "42", null, null, null, null,  null,  null,  null,  null,  null,  null,  null, "3B"],
+          "command_param": { "format": "Text" }
+        }
+      ]
+    },
+
+    "write_rx_mode": {
+      "messages": [
+        {
+          "comment": "write RX mode",
+          "command": ["4D", "44", null, "3B"],
+          "command_param": {
+            "format": "enum",
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ]
+    },
+
+    "write_tx_mode": {
+      "messages": [
+        { "command": ["52", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1001000; SAT ON, CTRL=Sub " },
+        {
+          "comment": "write TX mode",
+          "command": ["4D", "44", null, "3B"],
+          "command_param": {
+            "format": "enum",
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        },
+        { "command": ["52", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, CTRL=Main" }
+      ]
+    },
+    
+    "write_ptt_off": {
+      "messages": [
+        { "command": ["52", "58", "3B"], "comment": "RX;write PTT OFF" }
+      ]
+    },
+
+    "write_ptt_on": {
+      "messages": [
+        { "command": ["54", "58", "3B"], "comment": "TX; write PTT ON" }
+      ]
+    }
+  },
+
+  "split": {
+    "setup": {
+      "messages": [
+        { "command": ["41", "49", "3B"], "comment": "AI0; Auto Info OFF" },
+        { "command": ["52", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
+        { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
+        { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
+        { "command": ["46", "54", "31", "3B"], "comment": "FT1; tx on VFO B" }
+      ],
+      "restriction": "when_setting_up"
+    },
+
+    "read_rx_frequency": {
+      "messages": [
+        {
+          "comment": "read RX frequency",
+          "command": ["46", "41", "3B"], 
+          "reply": ["46", "41", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
+          "reply_param": { "format": "text" }
+        }
+      ]
+    },
+
+    "read_tx_frequency": {
+      "messages": [
+        {
+          "comment": "read TX frequency",
+          "command": ["46", "42", "3B"], 
+          "reply": ["46", "42", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
+          "reply_param": { "format": "text" }
+        }
+      ]
+    },
+
+    "read_rx_mode": {
+      "messages": [
+        {
+          "comment": "read RX mode",
+          "command": ["4D", "44", "3B"],
+          "reply": ["4D", "44", null, "3B"],
+          "reply_param": { 
+            "format": "enum", 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_mode": {
+      "messages": [
+        {
+          "comment": "read TX mode",
+          "command": ["4D", "44", "3B"],
+          "reply": ["4D", "44", null, "3B"],
+          "reply_param": { 
+            "format": "enum", 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+
+    "read_ptt": {
+      "messages": [
+        {
+          "comment": "read PTT",
+          "command": ["49", "47", "3B"],
+          "reply": ["49", "47", 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            "3B"],
+          "reply_param": { "format": "enum", "start": 28, "length": 1,"values": { "ON": ["31"], "OFF": ["30"] } }
+        }
+      ]
+    },
+
+    "write_rx_frequency": {
+      "messages": [
+        {
+          "comment": "write RX frequency",
+          "command": ["46", "41", null, null, null, null,  null,  null,  null,  null,  null,  null,  null, "3B"],
+          "command_param": { "format": "Text" }
+        }
+      ]
+    },
+
+    "write_tx_frequency": {
+      "messages": [
+        {
+          "comment": "write TX frequency",
+          "command": ["46", "42", null, null, null, null,  null,  null,  null,  null,  null,  null,  null, "3B"],
+          "command_param": { "format": "Text" }
+        }
+      ]
+    },
+
+    "write_rx_mode": {
+      "messages": [
+        {
+          "comment": "write RX mode",
+          "command": ["4D", "44", null, "3B"],
+          "command_param": {
+            "format": "enum",
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "write_tx_mode": {
+      "messages": [
+        { "command": ["46", "52", "31", "3B"], "comment": "FR1; rx on VFO B" },
+        { "command": ["46", "54", "30", "3B"], "comment": "FT0; tx on VFO A" },
+        {
+          "comment": "write TX mode",
+          "command": ["4D", "44", null, "3B"],
+          "command_param": {
+            "format": "enum",
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        },
+        { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
+        { "command": ["46", "54", "31", "3B"], "comment": "FT1; tx on VFO B" }
+      ],
+      "restriction": "when_setting_up"
+    },
+    
+    "write_ptt_off": {
+      "messages": [
+        { "command": ["52", "58", "3B"], "comment": "RX; write PTT OFF" }
+      ]
+    },
+
+    "write_ptt_on": {
+      "messages": [
+        { "command": ["54", "58", "3B"], "comment": "TX; write PTT ON" }
+      ]
+    }
+  },
+  
+  "simplex": {
+    "setup": {
+      "messages": [
+        { "command": ["41", "49", "3B"], "comment": "AI0; Auto Info OFF" },
+        { "command": ["52", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
+        { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
+        { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
+        { "command": ["46", "54", "30", "3B"], "comment": "FT0; tx on VFO A" }
+      ],
+      "restriction": "when_setting_up"
+    },
+        "read_rx_frequency": {
+      "messages": [
+        {
+          "comment": "read RX frequency",
+          "command": ["46", "41", "3B"], 
+          "reply": ["46", "41", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
+          "reply_param": { "format": "text" }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_frequency": {
+      "messages": [
+        {
+          "comment": "read TX frequency",
+          "command": ["46", "41", "3B"], 
+          "reply": ["46", "42", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
+          "reply_param": { "format": "text" }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+
+    "read_rx_mode": {
+      "messages": [
+        {
+          "comment": "read RX mode. todo: can read when transmitting?",
+          "command": ["4D", "44", "3B"],
+          "reply": ["4D", "44", null, "3B"],
+          "reply_param": { 
+            "format": "enum", 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "read_tx_mode": {
+      "messages": [
+        {
+          "comment": "read TX mode. todo: select-sub, read, select-main",
+          "command": ["4D", "44", "3B"],
+          "reply": ["4D", "44", null, "3B"],
+          "reply_param": { 
+            "format": "enum", 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+
+    "read_ptt": {
+      "messages": [
+        {
+          "comment": "read PTT",
+          "command": ["49", "47", "3B"],
+          "reply": ["49", "47", 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, 
+            "3B"],
+          "reply_param": { "format": "enum", "start": 28, "length": 1,"values": { "ON": ["31"], "OFF": ["30"] } }
+        }
+      ]
+    },
+
+    "write_rx_frequency": {
+      "messages": [
+        {
+          "comment": "write RX frequency",
+          "command": ["46", "41", null, null, null, null,  null,  null,  null,  null,  null,  null,  null, "3B"],
+          "command_param": { "format": "Text" }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "write_tx_frequency": {
+      "messages": [
+        {
+          "comment": "write TX frequency",
+          "command": ["46", "42", null, null, null, null,  null,  null,  null,  null,  null,  null,  null, "3B"],
+          "command_param": { "format": "Text" }
+        }
+      ],
+      "restriction": "when_transmitting"
+    },
+
+    "write_rx_mode": {
+      "messages": [
+        {
+          "comment": "write RX mode",
+          "command": ["4D", "44", null, "3B"],
+          "command_param": {
+            "format": "enum",
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }
+      ],
+      "restriction": "when_receiving"
+    },
+
+    "write_tx_mode": {
+      "messages": [
+        {
+          "comment": "write TX mode",
+          "command": ["4D", "44", null, "3B"],
+          "command_param": {
+            "format": "enum",
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+          }
+        }      
+      ],
+      "restriction": "when_transmitting"
+    },
+    
+    "write_ptt_off": {
+      "messages": [
+        { "command": ["52", "58", "3B"], "comment": "RX; write PTT OFF" }
+      ]
+    },
+
+    "write_ptt_on": {
+      "messages": [
+        { "command": ["54", "58", "3B"], "comment": "TX; write PTT ON" }
+      ]
+    }
+
+  }  
+}
