@@ -11,6 +11,8 @@ nav_order: 3
 
 There is no installer, just [download](download.md) and unzip all files to a folder.
 
+Check [this folder](https://github.com/VE3NEA/SkyCAT/tree/master/Rigs) for the latest versions of the command set file for your radio.
+
 Make sure that [.NET 9.0 Desktop Runtime](https://learn.microsoft.com/en-us/dotnet/core/install/)
 is installed on your system:
 
