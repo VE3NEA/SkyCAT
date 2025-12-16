@@ -82,6 +82,24 @@
           "reply": ["FE", "FE", "E0", "7C",  "FB", "FD"],
           "command_param": {"format": "BCD_LE"}
         }
+      ],
+      "alt_messages": [
+        {
+          "comment": "swap Main and Sub",
+          "command": ["FE", "FE", "7C", "E0", "07", "B0", "FD"],
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"]
+        },
+        {
+          "comment": "select Main band",
+          "command": ["FE", "FE", "7C", "E0", "07", "D0","FD"],
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"]
+        },
+        {
+          "command": ["FE", "FE", "7C", "E0", "05", null, null, null, null, null, "FD"],
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"],
+          "command_param": {"format": "BCD_LE"}
+        },
+        { "command": ["FE", "FE", "7C", "E0", "0f", "00", "FD"], "reply": [ "FE", "FE", "E0", "7C", "FB", "FD"], "comment": "split off" }
       ]
     },
 
@@ -93,6 +111,24 @@
           "reply": ["FE", "FE", "E0", "7C",  "FB", "FD"],
           "command_param": {"format": "BCD_LE"}
         }
+      ],
+      "alt_messages": [
+        {
+          "comment": "swap Main and Sub",
+          "command": ["FE", "FE", "7C", "E0", "07", "B0", "FD"],
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"]
+        },
+        {
+          "comment": "select Sub band",
+          "command": ["FE", "FE", "7C", "E0", "07", "D1","FD"],
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"]
+        },
+        {
+          "command": ["FE", "FE", "7C", "E0", "05", null, null, null, null, null, "FD"],
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"],
+          "command_param": {"format": "BCD_LE"}
+        },
+        { "command": ["FE", "FE", "7C", "E0", "0f", "00", "FD"], "reply": [ "FE", "FE", "E0", "7C", "FB", "FD"], "comment": "split off" }
       ]
     },
 
@@ -142,7 +178,8 @@
       "messages": [
         { "command": ["FE", "FE", "7C", "E0", "16", "5A", "00", "FD"], "reply": ["FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "SAT mode off" },
         { "command": ["FE", "FE", "7C", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Select Main band" },
-        { "command": ["FE", "FE", "7C", "E0", "0F", "01", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Split ON" }
+        { "command": ["FE", "FE", "7C", "E0", "0F", "01", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Split ON" },
+        { "command": ["FE", "FE", "7C", "E0", "16", "59", "00", "FD"], "reply": [ "FE", "FE", "E0", "7C", "FB", "FD"], "comment": "dual watch off" }
       ],
       "restriction": "when_setting_up"
     },
@@ -275,7 +312,8 @@
       "messages": [
         { "command": ["FE", "FE", "7C", "E0", "16", "5A", "00", "FD"], "reply": ["FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "SAT mode off" },
         { "command": ["FE", "FE", "7C", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Select Main band" },
-        { "command": ["FE", "FE", "7C", "E0", "0F", "00", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Split off" }
+        { "command": ["FE", "FE", "7C", "E0", "0F", "00", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Split off" },
+        { "command": ["FE", "FE", "7C", "E0", "16", "59", "00", "FD"], "reply": [ "FE", "FE", "E0", "7C", "FB", "FD"], "comment": "dual watch off" }
       ],
       "restriction": "when_setting_up"
     },
