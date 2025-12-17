@@ -185,7 +185,8 @@
         },        
         {
           "comment": "set data mode",
-          "command": ["FE", "FE", "A2", "E0", "1A", "06", null, "01", "FD"],
+          "command": [ "FE", "FE", "A2", "E0", "1A", "06", null, "01", "FD" ],
+          "ignore_error": true,
           "command_param": { "format": "Enum", "values": 
             {
               "LSB": [ "00" ], "USB": [ "00" ], "AM": [ "00" ], "CW": [ "00" ], "RTTY": [ "00" ], 
@@ -227,7 +228,8 @@
               "LSB-D": [ "01" ], "USB-D": [ "01" ], "FM-D": [ "01" ]
             }
           },
-          "reply": ["FE", "FE", "E0", "A2", "FB", "FD"]        
+          "reply": [ "FE", "FE", "E0", "A2", "FB", "FD" ],
+          "ignore_error": true
         }
       ]
     },
