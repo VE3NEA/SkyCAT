@@ -8,7 +8,7 @@
   "duplex": {
     "setup": {
       "messages": [
-        { "command": ["41", "49", "3B"], "comment": "AI0; Auto Info OFF" },
+        { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
         { "command": ["52", "41", "31", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, uplink=Main" }
       ],
       "restriction": "when_setting_up"
@@ -70,8 +70,8 @@
       "messages": [
         {
           "comment": "read PTT",
-          "command": ["49", "47", "3B"],
-          "reply": ["49", "47", 
+          "command": ["49", "46", "3B"],
+          "reply": ["49", "46", 
             null, null, null, null, null, null, null, 
             null, null, null, null, null, null, null, 
             null, null, null, null, null, null, null, 
@@ -147,7 +147,7 @@
   "split": {
     "setup": {
       "messages": [
-        { "command": ["41", "49", "3B"], "comment": "AI0; Auto Info OFF" },
+        { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
         { "command": ["52", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
         { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
         { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
@@ -212,8 +212,8 @@
       "messages": [
         {
           "comment": "read PTT",
-          "command": ["49", "47", "3B"],
-          "reply": ["49", "47", 
+          "command": ["49", "46", "3B"],
+          "reply": ["49", "46", 
             null, null, null, null, null, null, null, 
             null, null, null, null, null, null, null, 
             null, null, null, null, null, null, null, 
@@ -293,7 +293,7 @@
   "simplex": {
     "setup": {
       "messages": [
-        { "command": ["41", "49", "3B"], "comment": "AI0; Auto Info OFF" },
+        { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
         { "command": ["52", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
         { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
         { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
@@ -359,8 +359,8 @@
       "messages": [
         {
           "comment": "read PTT",
-          "command": ["49", "47", "3B"],
-          "reply": ["49", "47", 
+          "command": ["49", "46", "3B"],
+          "reply": ["49", "46", 
             null, null, null, null, null, null, null, 
             null, null, null, null, null, null, null, 
             null, null, null, null, null, null, null, 
