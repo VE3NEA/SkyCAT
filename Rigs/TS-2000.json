@@ -9,7 +9,7 @@
     "setup": {
       "messages": [
         { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
-        { "command": ["52", "41", "31", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, uplink=Main" }
+        { "command": ["53", "41", "31", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, uplink=Main" }
       ],
       "restriction": "when_setting_up"
     },
@@ -118,7 +118,7 @@
 
     "write_tx_mode": {
       "messages": [
-        { "command": ["52", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1001000; SAT ON, CTRL=Sub " },
+        { "command": ["53", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1001000; SAT ON, CTRL=Sub " },
         {
           "comment": "write TX mode",
           "command": ["4D", "44", null, "3B"],
@@ -127,7 +127,7 @@
             "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
           }
         },
-        { "command": ["52", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, CTRL=Main" }
+        { "command": ["53", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, CTRL=Main" }
       ]
     },
     
@@ -148,7 +148,7 @@
     "setup": {
       "messages": [
         { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
-        { "command": ["52", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
+        { "command": ["53", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
         { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
         { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
         { "command": ["46", "54", "31", "3B"], "comment": "FT1; tx on VFO B" }
@@ -294,7 +294,7 @@
     "setup": {
       "messages": [
         { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
-        { "command": ["52", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
+        { "command": ["53", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
         { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
         { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
         { "command": ["46", "54", "30", "3B"], "comment": "FT0; tx on VFO A" }
