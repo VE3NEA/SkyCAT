@@ -134,28 +134,66 @@
 
     "write_rx_mode": {
       "messages": [
-        { "command": ["FE", "FE", "7C", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Select Main band" },
+        { 
+          "command": ["FE", "FE", "7C", "E0", "07", "D0", "FD"],
+          "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"],
+          "comment": "Select Main band"
+        },
         {
           "command": ["FE", "FE", "7C", "E0", "06", null, "FD"],
-          "command_param": { 
-            "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
+          "command_param": { "format": "Enum", "values": 
+            { 
+              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], 
+              "FM": [ "05" ], "CW-R": [ "07" ], "RTTY-R": [ "08" ], "DV": [ "17" ],
+              "LSB-D": [ "00" ], "USB-D": [ "01" ], "FM-D": [ "05" ]            
+            }
+          },            
+          "reply": ["FE", "FE", "E0", "7C",  "FB", "FD"]
+        },        
+        {
+          "comment": "set data mode",
+          "command": ["FE", "FE", "7C", "E0", "1A", "06", null, null, "FD"],
+          "command_param": { "format": "Enum", "values": 
+            {
+              "LSB": [ "00", "00" ], "USB": [ "00", "00" ], "AM": [ "00", "00" ], "CW": [ "00", "00" ], "RTTY": [ "00", "00" ], 
+              "FM": [ "00", "00" ], "CW-R": [ "00", "00" ], "RTTY-R": [ "00", "00" ], "DV": [ "00", "00" ],
+              "LSB-D": [ "01", "01" ], "USB-D": [ "01", "01" ], "FM-D": [ "01", "01" ]
+            }
           },
-            "reply": ["FE", "FE", "E0", "7C",  "FB", "FD"]
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"]        
         }
       ]
     },
 
     "write_tx_mode": {
       "messages": [
-        { "command": ["FE", "FE", "7C", "E0", "07", "D1", "FD"], "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"], "comment": "Select Sub band" },
+        { 
+          "command": ["FE", "FE", "7C", "E0", "07", "D1", "FD"],
+          "reply": [ "FE", "FE", "E0", "7C",  "FB", "FD"],
+          "comment": "Select Sub band"
+        },
         {
           "command": ["FE", "FE", "7C", "E0", "06", null, "FD"],
-          "command_param": { 
-            "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
+          "command_param": {"format": "Enum", "values": 
+            {
+              "LSB": [ "00" ], "USB": [ "01" ], "AM": [ "02" ], "CW": [ "03" ], "RTTY": [ "04" ], 
+              "FM": [ "05" ], "CW-R": [ "07" ], "RTTY-R": [ "08" ], "DV": [ "17" ],
+              "LSB-D": [ "00" ], "USB-D": [ "01" ], "FM-D": [ "05" ]            
+            }
           },
             "reply": ["FE", "FE", "E0", "7C",  "FB", "FD"]
+        },
+        {
+          "comment": "set data mode",
+          "command": ["FE", "FE", "7C", "E0", "1A", "06", null, null, "FD"],
+          "command_param": { "format": "Enum", "values": 
+            {
+              "LSB": [ "00", "00" ], "USB": [ "00", "00" ], "AM": [ "00", "00" ], "CW": [ "00", "00" ], "RTTY": [ "00", "00" ], 
+              "FM": [ "00", "00" ], "CW-R": [ "00"v ], "RTTY-R": [ "00", "00" ], "DV": [ "00", "00" ],
+              "LSB-D": [ "01", "01" ], "USB-D": [ "01", "01" ], "FM-D": [ "01", "01" ]
+            }
+          },
+          "reply": ["FE", "FE", "E0", "7C", "FB", "FD"]        
         }
       ]
     },
