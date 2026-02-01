@@ -40,9 +40,6 @@
     <Content Include="..\Rigs\IC-9100.json" Link="Rigs\IC-9100.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Rigs\IC-9700-old.json" Link="Rigs\IC-9700-old.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\Rigs\IC-9700.json" Link="Rigs\IC-9700.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
