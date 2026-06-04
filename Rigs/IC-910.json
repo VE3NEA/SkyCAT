@@ -9,8 +9,7 @@
     "setup": {
       "messages": [
         { "command": ["FE", "FE", "60", "E0", "1A", "07", "01", "FD"], "reply": ["FE", "FE", "E0", "60",  "FB", "FD"], "comment": "SAT mode ON" },
-        { "command": ["FE", "FE", "60", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Select Main band" },
-        { "command": ["FE", "FE", "60", "E0", "0F", "00", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Split off" }
+        { "command": ["FE", "FE", "60", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Select Main band" }
       ],
       "restriction": "when_setting_up"
     },
