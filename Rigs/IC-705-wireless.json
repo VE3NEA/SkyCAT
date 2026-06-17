@@ -4,6 +4,7 @@
   "default_baud_rate": 19200,
   "cross_band_split": false,
   "bad_reply": ["FE", "FE", "E0", "A4", "FA", "FD"],
+  "comment": "created by Joe AF1E",
 
   "split": {
     "setup": {

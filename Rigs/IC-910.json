@@ -4,6 +4,7 @@
   "default_baud_rate": 19200,
   "cross_band_split": false,
   "bad_reply": ["FE", "FE", "E0", "60",  "FA", "FD"],
+  "comment": "updated by Tayler ZL2TAY",
 
   "duplex": {
     "setup": {
@@ -42,7 +43,7 @@
         {
           "command": ["FE", "FE", "60", "E0", "04", "FD"],
           "reply_param": {
-            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
           "reply": ["FE", "FE", "E0", "60",  "04", null, "FD"]
         }
@@ -55,7 +56,7 @@
         {
           "command": ["FE", "FE", "60", "E0", "04", "FD"],
           "reply_param": {
-            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
           "reply": ["FE", "FE", "E0", "60",  "04", null, "FD"]
         }
@@ -80,11 +81,29 @@
           "reply": ["FE", "FE", "E0", "60",  "FB", "FD"],
           "command_param": {"format": "BCD_LE"}
         }
+      ],
+      "alt_messages": [
+        { "command": ["FE", "FE", "60", "E0", "07", "B0", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Swap Main/Sub" },
+        { "command": ["FE", "FE", "60", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Select Main band" },
+        {
+          "command": ["FE", "FE", "60", "E0", "05", null, null, null, null, null, "FD"],
+          "reply": ["FE", "FE", "E0", "60",  "FB", "FD"],
+          "command_param": {"format": "BCD_LE"}
+        }
       ]
     },
 
     "write_tx_frequency":  {
       "messages": [
+        { "command": ["FE", "FE", "60", "E0", "07", "D1", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Select Sub band" },
+        {
+          "command": ["FE", "FE", "60", "E0", "05", null, null, null, null, null, "FD"],
+          "reply": ["FE", "FE", "E0", "60",  "FB", "FD"],
+          "command_param": {"format": "BCD_LE"}
+        }
+      ],
+      "alt_messages": [
+        { "command": ["FE", "FE", "60", "E0", "07", "B0", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Swap Main/Sub" },
         { "command": ["FE", "FE", "60", "E0", "07", "D1", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Select Sub band" },
         {
           "command": ["FE", "FE", "60", "E0", "05", null, null, null, null, null, "FD"],
@@ -101,7 +120,7 @@
           "command": ["FE", "FE", "60", "E0", "06", null, "FD"],
           "command_param": { 
             "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
             "reply": ["FE", "FE", "E0", "60",  "FB", "FD"]
         }
@@ -115,7 +134,7 @@
           "command": ["FE", "FE", "60", "E0", "06", null, "FD"],
           "command_param": { 
             "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
             "reply": ["FE", "FE", "E0", "60",  "FB", "FD"]
         }
@@ -139,6 +158,7 @@
     "setup": {
       "messages": [
         { "command": ["FE", "FE", "60", "E0", "1A", "07", "00", "FD"], "reply": ["FE", "FE", "E0", "60",  "FB", "FD"], "comment": "SAT mode off" },
+		{ "command": ["FE", "FE", "60", "E0", "1A", "09", "00", "FD"], "reply": ["FE", "FE", "E0", "60", "FB", "FD"], "comment": "Sub band OFF" },
         { "command": ["FE", "FE", "60", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Select Main band" },
         { "command": ["FE", "FE", "60", "E0", "0F", "01", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Split ON" }
       ],
@@ -172,7 +192,7 @@
         {
           "command": ["FE", "FE", "60", "E0", "04", "FD"],
           "reply_param": {
-            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
           "reply": ["FE", "FE", "E0", "60",  "04", null, "FD"]
         }
@@ -185,7 +205,7 @@
         {
           "command": ["FE", "FE", "60", "E0", "04", "FD"],
           "reply_param": {
-            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
           "reply": ["FE", "FE", "E0", "60",  "04", null, "FD"]
         }
@@ -231,7 +251,7 @@
           "command": ["FE", "FE", "60", "E0", "06", null, "FD"],
           "command_param": { 
             "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
             "reply": ["FE", "FE", "E0", "60",  "FB", "FD"]
         }
@@ -246,7 +266,7 @@
           "command": ["FE", "FE", "60", "E0", "06", null, "FD"],
           "command_param": { 
             "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
             "reply": ["FE", "FE", "E0", "60",  "FB", "FD"]
         },
@@ -272,6 +292,7 @@
     "setup": {
       "messages": [
         { "command": ["FE", "FE", "60", "E0", "1A", "07", "00", "FD"], "reply": ["FE", "FE", "E0", "60",  "FB", "FD"], "comment": "SAT mode off" },
+		{ "command": ["FE", "FE", "60", "E0", "1A", "09", "00", "FD"], "reply": ["FE", "FE", "E0", "60", "FB", "FD"], "comment": "Sub band OFF" },
         { "command": ["FE", "FE", "60", "E0", "07", "D0", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Select Main band" },
         { "command": ["FE", "FE", "60", "E0", "0F", "00", "FD"], "reply": [ "FE", "FE", "E0", "60",  "FB", "FD"], "comment": "Split off" }
       ],
@@ -305,7 +326,7 @@
         {
           "command": ["FE", "FE", "60", "E0", "04", "FD"],
           "reply_param": {
-            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
           "reply": ["FE", "FE", "E0", "60",  "04", null, "FD"]
         }
@@ -318,7 +339,7 @@
         {
           "command": ["FE", "FE", "60", "E0", "04", "FD"],
           "reply_param": {
-            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "format": "Enum", "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
           "reply": ["FE", "FE", "E0", "60",  "04", null, "FD"]
         }
@@ -337,15 +358,15 @@
     },
 
     "write_rx_frequency":  {
-      "messages": [
-        {
-          "command": ["FE", "FE", "60", "E0", "05", null, null, null, null, null, "FD"],
-          "reply": ["FE", "FE", "E0", "60",  "FB", "FD"],
-          "command_param": {"format": "BCD_LE"}
-        }
-      ],
-      "restriction": "when_receiving"
-    },
+	  "messages": [
+		{
+		  "command": ["FE", "FE", "60", "E0", "05", null, null, null, null, null, "FD"],
+		  "reply": ["FE", "FE", "E0", "60",  "FB", "FD"],
+		  "command_param": {"format": "BCD_LE"}
+		}
+	  ],
+	  "restriction": "when_receiving"
+	},
 
     "write_tx_frequency":  {
       "messages": [
@@ -364,7 +385,7 @@
           "command": ["FE", "FE", "60", "E0", "06", null, "FD"],
           "command_param": { 
             "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
             "reply": ["FE", "FE", "E0", "60",  "FB", "FD"]
         }
@@ -378,7 +399,7 @@
           "command": ["FE", "FE", "60", "E0", "06", null, "FD"],
           "command_param": { 
             "format": "Enum", 
-            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "04" ] }
+            "values": { "LSB": [ "00" ], "USB": [ "01" ], "CW": [ "03" ], "FM": [ "05" ] }
           },
             "reply": ["FE", "FE", "E0", "60",  "FB", "FD"]
         }
