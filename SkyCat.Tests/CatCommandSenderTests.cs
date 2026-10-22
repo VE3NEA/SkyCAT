@@ -85,5 +85,15 @@ namespace SkyCat.Tests
       // ListAvailableCommands has not run yet, so nothing is available
       Assert.False(NewSender().IsCommandAvailable(CatCommand.read_rx_frequency));
     }
+
+    [Fact]
+    public void TeardownBeforeSetupDoesNothing()
+    {
+      // a client may disconnect, or skycatd may exit, before the radio was ever set up
+      var sender = NewSender();
+      sender.SelectRadio("IC-9700");
+      sender.TeardownRadio();
+      Assert.False(sender.IsSetUp);
+    }
   }
 }

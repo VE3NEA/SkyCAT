@@ -7,6 +7,9 @@ namespace skycatd
   {
     public readonly CatCommandSender CommandSender;
 
+    // serializes access to the radio between the TCP clients and the shutdown code
+    public readonly object SyncRoot = new();
+
     public CommandInterpreter(Options options, ILogger? logger)
     {
       CommandSender = new CatCommandSender(logger);
@@ -54,6 +57,11 @@ namespace skycatd
 
         _ => "RPRT -11"
       };
+    }
+
+    public void Teardown()
+    {
+      lock (SyncRoot) CommandSender.TeardownRadio();
     }
 
     private string Ignore()

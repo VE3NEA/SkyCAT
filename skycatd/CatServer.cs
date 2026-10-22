@@ -14,6 +14,7 @@ namespace skycatd
 
     private readonly Options options;
     private readonly CancellationTokenSource cts = new();
+    private readonly ManualResetEventSlim stopped = new();
     private readonly Microsoft.Extensions.Logging.ILogger logger;
     private readonly TcpServer tcpServer;
     private readonly CommandInterpreter commandInterpreter;
@@ -138,13 +139,25 @@ namespace skycatd
       }
 
       tcpServer.Stop();
-      if (serialPort.IsOpen) serialPort.Close();
+
+      // restore radio settings before closing the port
+      commandInterpreter.Teardown();
+      lock (commandInterpreter.SyncRoot)
+        if (serialPort.IsOpen) serialPort.Close();
+
       logger.LogInformation("CatServer shutting down.");
+      stopped.Set();
     }
 
     public void Stop()
     {
       cts.Cancel();
+    }
+
+    // block until Run() has torn down the radio and closed the port
+    public bool WaitUntilStopped(int timeoutMs)
+    {
+      return stopped.Wait(timeoutMs);
     }
   }
 }

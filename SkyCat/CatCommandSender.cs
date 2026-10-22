@@ -24,6 +24,7 @@ namespace SkyCat
     public string[] RadioNames => CommandSets.Keys.ToArray();
     public string? RadioName {get; private set; }
     public bool Transmitting {get; private set; }
+    public bool IsSetUp {get; private set; }
     
 
 
@@ -102,8 +103,34 @@ namespace SkyCat
       if (CommandGroup == null) throw new ArgumentException($"Radio '{RadioName}' has no {operatingMode} mode");
       ListAvailableCommands();
 
-      // set up radio
+      // set up radio. the flag is set first because setup may fail after changing some settings
+      IsSetUp = true;
       SendCommand(CatCommand.setup, null, true);
+    }
+
+    // restore the radio settings changed by setup, e.g., turn CI-V transceive back on,
+    // so that other programs can use the radio. called when the last client disconnects and on exit
+    public void TeardownRadio()
+    {
+      if (!IsSetUp) return;
+      IsSetUp = false;
+
+      // commands are not available until the next setup
+      AvailableWhenReceiving = [];
+      AvailableWhenTransmitting = [];
+
+      if (!CommandGroup!.ContainsKey(CatCommand.teardown) || CommandGroup[CatCommand.teardown] == null) return;
+      if (!SerialPort.IsOpen) return;
+
+      Log?.LogInformation($"Tearing down radio '{RadioName}' ({OperatingMode})");
+      try
+      {
+        SendCommand(CatCommand.teardown, null, true);
+      }
+      catch (Exception ex)
+      {
+        Log?.LogError($"Teardown failed: {ex.Message}");
+      }
     }
 
     private void ListAvailableCommands()

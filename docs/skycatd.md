@@ -109,3 +109,7 @@ where **frequency** is the frequency in Hertz, **mode** is a mode name, e.g., CW
 the CTCSS sub-audible (PL) tone in tenths of Hz, e.g. `C 670` = 67.0 Hz.
 
 For compatibility with rigctld.exe, the '**U SATMODE 1**', '**S 1 VFOB**' and '**S 0 VFOB**' commands are recognized as aliases of the Duplex, Split and Simplex setup commands respectively.
+
+## Teardown
+
+When the last client disconnects, and when skycatd exits with Ctrl-C or by closing its window, skycatd sends the **teardown** command, if the radio's command set defines one. The teardown restores the radio settings changed by the setup command that would interfere with other programs. For example, for IC-9700 it turns CI-V Transceive back on, which programs such as wfview need. After the teardown, the next client must send a setup command again.

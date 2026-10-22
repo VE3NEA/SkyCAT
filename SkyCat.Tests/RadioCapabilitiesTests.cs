@@ -13,7 +13,8 @@ namespace SkyCat.Tests
           "write_ptt_on": { "messages": [ { "command": ["54"] } ] },
           "read_rx_mode": { "messages": [ { "command": ["4D"] } ], "restriction": "when_receiving" },
           "read_tx_mode": { "messages": [ { "command": ["4D"] } ], "restriction": "when_transmitting" },
-          "setup":        { "messages": [ { "command": ["41"] } ], "restriction": "when_setting_up" }
+          "setup":        { "messages": [ { "command": ["41"] } ], "restriction": "when_setting_up" },
+          "teardown":     { "messages": [ { "command": ["42"] } ], "restriction": "when_setting_up" }
         }
       }
       """;
@@ -76,6 +77,16 @@ namespace SkyCat.Tests
       Assert.Contains("setup", s.when_setting_up);
       Assert.DoesNotContain("setup", s.when_receiving);
       Assert.DoesNotContain("setup", s.when_transmitting);
+    }
+
+    [Fact]
+    public void TeardownIsNotAdvertised()
+    {
+      // skycatd sends teardown itself, so clients should not see it
+      var s = Build().simplex!;
+      Assert.DoesNotContain("teardown", s.when_setting_up);
+      Assert.DoesNotContain("teardown", s.when_receiving);
+      Assert.DoesNotContain("teardown", s.when_transmitting);
     }
 
     [Fact]
