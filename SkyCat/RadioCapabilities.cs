@@ -50,6 +50,8 @@ namespace SkyCat
       foreach (var cmd in commandGroup)
       {
         if (cmd.Value == null) continue;
+        // teardown is sent by skycatd itself, clients never request it
+        if (cmd.Key == CatCommand.teardown) continue;
         string commandName = cmd.Key.ToString();
         var restriction = cmd.Value.Restriction;
 

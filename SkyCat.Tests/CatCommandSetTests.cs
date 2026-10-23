@@ -41,6 +41,17 @@ namespace SkyCat.Tests
     }
 
     [Fact]
+    public void Ic9700TeardownTurnsTransceiveBackOn()
+    {
+      var path = Path.Combine(AppContext.BaseDirectory, "Rigs", "IC-9700.json");
+      var commandSet = CatCommandSet.FromJson(File.ReadAllText(path));
+      byte?[] transceiveOn = [0xFE, 0xFE, 0xA2, 0xE0, 0x1A, 0x05, 0x01, 0x27, 0x01, 0xFD];
+
+      foreach (var group in new[] { commandSet.Duplex, commandSet.Split, commandSet.Simplex })
+        Assert.Equal(transceiveOn, group![CatCommand.teardown].Messages[0].Command);
+    }
+
+    [Fact]
     public void RigFolderIsNotEmpty()
     {
       var dir = Path.Combine(AppContext.BaseDirectory, "Rigs");
