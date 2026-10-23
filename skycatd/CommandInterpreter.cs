@@ -8,7 +8,7 @@ namespace skycatd
     public readonly CatCommandSender CommandSender;
 
     // serializes access to the radio between the TCP clients and the shutdown code
-    public readonly object SyncRoot = new();
+    private readonly object syncRoot = new();
 
     public CommandInterpreter(Options options, ILogger? logger)
     {
@@ -19,6 +19,11 @@ namespace skycatd
     }
 
     public string Execute(string command)
+    {
+      lock (syncRoot) return ExecuteLocked(command);
+    }
+
+    private string ExecuteLocked(string command)
     {
       var args = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
       if (args.Length == 0) return "RPRT -1";
@@ -59,9 +64,26 @@ namespace skycatd
       };
     }
 
-    public void Teardown()
+    // release the radio. if a condition is given, it is checked under the same lock as the teardown,
+    // so that a client cannot set up the radio between the check and the teardown
+    public void Teardown(Func<bool>? onlyIf = null)
     {
-      lock (SyncRoot) CommandSender.TeardownRadio();
+      lock (syncRoot)
+        if (onlyIf == null || onlyIf()) CommandSender.TeardownRadio();
+    }
+
+    // release the radio and close the serial port, on exit
+    public void Shutdown()
+    {
+      lock (syncRoot)
+        try
+        {
+          CommandSender.TeardownRadio();
+        }
+        finally
+        {
+          if (CommandSender.SerialPort.IsOpen) CommandSender.SerialPort.Close();
+        }
     }
 
     private string Ignore()

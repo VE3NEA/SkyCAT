@@ -43,7 +43,7 @@ namespace skycatd
           Environment.Exit(1);
         }
 
-        // Ctrl-C, closing the console window, logoff and shutdown: stop the server gracefully
+        // on Ctrl-C, closing the console window, logoff and shutdown, stop the server gracefully
         // so that it tears down the radio before the process exits
         using var sigInt = PosixSignalRegistration.Create(PosixSignal.SIGINT, ctx => StopOnSignal(server!, ctx));
         using var sigQuit = PosixSignalRegistration.Create(PosixSignal.SIGQUIT, ctx => StopOnSignal(server!, ctx));

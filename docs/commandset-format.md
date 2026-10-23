@@ -88,7 +88,7 @@ Each field in the object describes the corresponding command. If the command is 
 
 However, some minimum set of commands should be present for the given operating mode to be useful. The software verifies that at least one command is not null.
 
-The **teardown** command is optional. skycatd sends it when the last client disconnects and when skycatd exits, to undo the setup changes that would interfere with other programs, for example, to turn the CI-V Transceive function of an ICOM radio back on. It is never available to the clients. Mark it with the `when_setting_up` restriction, like **setup**.
+The **teardown** command is optional. skycatd sends it when the last client disconnects, when a client switches to another operating mode, and when skycatd exits, to undo the setup changes that would interfere with other programs, for example, to turn the CI-V Transceive function of an ICOM radio back on. It is never available to the clients. Mark it with the `when_setting_up` restriction, like **setup**.
 
 The last three commands are optional and control the **transmit CTCSS** (sub-audible / PL tone)
 encoder, used to access FM-repeater satellites such as SO-50. They act on the transmitter only,

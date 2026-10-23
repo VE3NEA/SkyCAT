@@ -95,12 +95,18 @@ namespace SkyCat
 
     public void SetupRadio(OperatingMode operatingMode)
     {
-      OperatingMode = operatingMode;
       Log?.LogInformation($"Setting up radio '{RadioName}' ({operatingMode})");
 
-      // radio's commands for the given radio type
-      CommandGroup = (CatCommandGroup?)CommandSet!.GetType().GetProperty($"{operatingMode}")!.GetValue(CommandSet, null);
-      if (CommandGroup == null) throw new ArgumentException($"Radio '{RadioName}' has no {operatingMode} mode");
+      // radio's commands for the given radio type.
+      // if the radio has no such mode, fail before changing any state, the current mode stays set up
+      var commandGroup = (CatCommandGroup?)CommandSet!.GetType().GetProperty($"{operatingMode}")!.GetValue(CommandSet, null);
+      if (commandGroup == null) throw new ArgumentException($"Radio '{RadioName}' has no {operatingMode} mode");
+
+      // switching modes: undo the setup of the previous mode first
+      if (IsSetUp && operatingMode != OperatingMode) TeardownRadio();
+
+      OperatingMode = operatingMode;
+      CommandGroup = commandGroup;
       ListAvailableCommands();
 
       // set up radio. the flag is set first because setup may fail after changing some settings
@@ -108,8 +114,9 @@ namespace SkyCat
       SendCommand(CatCommand.setup, null, true);
     }
 
-    // restore the radio settings changed by setup, e.g., turn CI-V transceive back on,
-    // so that other programs can use the radio. called when the last client disconnects and on exit
+    // release the radio: un-key it and restore the settings changed by setup, e.g., turn CI-V transceive
+    // back on, so that other programs can use the radio. called when the last client disconnects,
+    // when switching to another mode, and on exit
     public void TeardownRadio()
     {
       if (!IsSetUp) return;
@@ -119,7 +126,25 @@ namespace SkyCat
       AvailableWhenReceiving = [];
       AvailableWhenTransmitting = [];
 
-      if (!CommandGroup!.ContainsKey(CatCommand.teardown) || CommandGroup[CatCommand.teardown] == null) return;
+      try
+      {
+        // a client that crashed while transmitting must not leave the radio keyed
+        if (Transmitting && SerialPort.IsOpen && CommandGroup?.GetValueOrDefault(CatCommand.write_ptt_off) != null)
+        {
+          Log?.LogWarning($"Radio '{RadioName}' is still transmitting, turning PTT off");
+          SendCommand(CatCommand.write_ptt_off, null, true);
+        }
+      }
+      catch (Exception ex)
+      {
+        Log?.LogError($"PTT off failed: {ex.Message}");
+      }
+      finally
+      {
+        Transmitting = false;
+      }
+
+      if (CommandGroup?.GetValueOrDefault(CatCommand.teardown) == null) return;
       if (!SerialPort.IsOpen) return;
 
       Log?.LogInformation($"Tearing down radio '{RadioName}' ({OperatingMode})");

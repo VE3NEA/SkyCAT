@@ -95,5 +95,26 @@ namespace SkyCat.Tests
       sender.TeardownRadio();
       Assert.False(sender.IsSetUp);
     }
+
+    [Fact]
+    public void FailedModeSwitchKeepsCurrentModeAndTeardownDoesNotThrow()
+    {
+      // IC-905 has no duplex group. the setup command itself fails because the port is closed,
+      // but the radio counts as set up, since a real setup may fail after changing some settings
+      var sender = NewSender();
+      sender.SelectRadio("IC-905");
+      Assert.Throws<InvalidOperationException>(() => sender.SetupRadio(OperatingMode.Simplex));
+      Assert.True(sender.IsSetUp);
+
+      // switching to a missing mode fails without changing the state
+      Assert.Throws<ArgumentException>(() => sender.SetupRadio(OperatingMode.Duplex));
+      Assert.True(sender.IsSetUp);
+      Assert.True(sender.IsCommandAvailable(CatCommand.read_rx_frequency));
+
+      // the client disconnects
+      sender.TeardownRadio();
+      Assert.False(sender.IsSetUp);
+      Assert.False(sender.IsCommandAvailable(CatCommand.read_rx_frequency));
+    }
   }
 }

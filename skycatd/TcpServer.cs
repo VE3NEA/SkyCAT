@@ -80,8 +80,7 @@ namespace skycatd
         {
           Logger.LogDebug($"Received from client #{id}: '{line}'");
 
-          string response;
-          lock (Interpreter.SyncRoot) response = Interpreter.Execute(line);
+          string response = Interpreter.Execute(line);
 
           Logger.LogDebug($"  Replying to client #{id}: {AddDescription(response)}");
           writer.Write(response + "\n");
@@ -95,7 +94,7 @@ namespace skycatd
       Logger.LogInformation($"Client  #{id} disconnected: {endPoint} ({ActiveClients.Count} connected clients)");
 
       // the last client is gone, give the radio back to other programs
-      if (ActiveClients.IsEmpty) Interpreter.Teardown();
+      Interpreter.Teardown(onlyIf: () => ActiveClients.IsEmpty);
     }
 
     private string AddDescription(string response)

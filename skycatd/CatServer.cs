@@ -138,15 +138,23 @@ namespace skycatd
         SleepWithCancellation(2000); 
       }
 
-      tcpServer.Stop();
+      try
+      {
+        tcpServer.Stop();
 
-      // restore radio settings before closing the port
-      commandInterpreter.Teardown();
-      lock (commandInterpreter.SyncRoot)
-        if (serialPort.IsOpen) serialPort.Close();
-
-      logger.LogInformation("CatServer shutting down.");
-      stopped.Set();
+        // restore radio settings before closing the port
+        commandInterpreter.Shutdown();
+      }
+      catch (Exception ex)
+      {
+        logger.LogError($"Error during shutdown: {ex.Message}");
+      }
+      finally
+      {
+        // always release the signal handler that waits for the shutdown
+        logger.LogInformation("CatServer shutting down.");
+        stopped.Set();
+      }
     }
 
     public void Stop()
