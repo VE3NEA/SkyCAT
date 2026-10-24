@@ -1,5 +1,5 @@
 {
-  "comment": "this file has not been tested and may contain errors. Please test and correct!",
+  "comment": "Corrections by Rocco IK8XLD, Tayler ZL2TAY and Luca EA8DJR",
   "id": 2014,
   "echo": false,
   "default_baud_rate": 57600,
@@ -9,7 +9,9 @@
     "setup": {
       "messages": [
         { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
-        { "command": ["53", "41", "31", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, uplink=Main" }
+        { "command": ["53", "41", "31", "30", "31", "30", "30", "30", "30", "3b"], "comment": "SA1010000; SAT ON, downlink=Main" },
+        { "command": ["46", "42", "30", "30", "30", "32", "38", "30", "30", "30","30","30","30","3b"], "comment": "FB00028000000" }
+       
       ],
       "restriction": "when_setting_up"
     },
@@ -44,7 +46,7 @@
           "reply": ["4D", "44", null, "3B"],
           "reply_param": { 
             "format": "enum", 
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -59,7 +61,7 @@
           "reply": ["4D", "44", null, "3B"],
           "reply_param": { 
             "format": "enum", 
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -105,12 +107,13 @@
 
     "write_rx_mode": {
       "messages": [
+        { "command": ["53", "41", "31", "30", "31", "30", "30", "30", "30", "3b"], "comment": "SA1010000; SAT ON, CTRL=Main" },
         {
           "comment": "write RX mode",
           "command": ["4D", "44", null, "3B"],
           "command_param": {
             "format": "enum",
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ]
@@ -118,16 +121,16 @@
 
     "write_tx_mode": {
       "messages": [
-        { "command": ["53", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1001000; SAT ON, CTRL=Sub " },
+        { "command": ["53", "41", "31", "30", "31", "31", "30", "30", "30", "3b"], "comment": "SA1011000; SAT ON, CTRL=Sub " },
         {
           "comment": "write TX mode",
           "command": ["4D", "44", null, "3B"],
           "command_param": {
             "format": "enum",
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         },
-        { "command": ["53", "41", "31", "30", "30", "31", "30", "30", "30", "3b"], "comment": "SA1000000; SAT ON, CTRL=Main" }
+        { "command": ["53", "41", "31", "30", "31", "30", "30", "30", "30", "3b"], "comment": "SA1010000; SAT ON, CTRL=Main" }        
       ]
     },
     
@@ -176,7 +179,7 @@
     "setup": {
       "messages": [
         { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
-        { "command": ["53", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
+        { "command": ["53", "41", "30", "30", "31", "30", "30", "30", "30", "3b"], "comment": "SA0010000; SAT OFF" },
         { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
         { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
         { "command": ["46", "54", "31", "3B"], "comment": "FT1; tx on VFO B" }
@@ -214,7 +217,7 @@
           "reply": ["4D", "44", null, "3B"],
           "reply_param": { 
             "format": "enum", 
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -229,7 +232,7 @@
           "reply": ["4D", "44", null, "3B"],
           "reply_param": { 
             "format": "enum", 
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -280,7 +283,7 @@
           "command": ["4D", "44", null, "3B"],
           "command_param": {
             "format": "enum",
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -296,7 +299,7 @@
           "command": ["4D", "44", null, "3B"],
           "command_param": {
             "format": "enum",
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         },
         { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
@@ -350,7 +353,7 @@
     "setup": {
       "messages": [
         { "command": ["41", "49", "30", "3B"], "comment": "AI0; Auto Info OFF" },
-        { "command": ["53", "41", "30", "30", "30", "30", "30", "30", "30", "3b"], "comment": "SA0000000; SAT OFF" },
+        { "command": ["53", "41", "30", "30", "31", "30", "30", "30", "30", "3b"], "comment": "SA0010000; SAT OFF" },
         { "command": ["44", "43", "30", "30", "3B"], "comment": "DC00; TX=Main, CTRL=Main" },
         { "command": ["46", "52", "30", "3B"], "comment": "FR0; rx on VFO A" },
         { "command": ["46", "54", "30", "3B"], "comment": "FT0; tx on VFO A" }
@@ -389,7 +392,7 @@
           "reply": ["4D", "44", null, "3B"],
           "reply_param": { 
             "format": "enum", 
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -404,7 +407,7 @@
           "reply": ["4D", "44", null, "3B"],
           "reply_param": { 
             "format": "enum", 
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -457,7 +460,7 @@
           "command": ["4D", "44", null, "3B"],
           "command_param": {
             "format": "enum",
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }
       ],
@@ -471,7 +474,7 @@
           "command": ["4D", "44", null, "3B"],
           "command_param": {
             "format": "enum",
-            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] } 
+            "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "FSK": ["36"], "FSK-R": ["39"] , "FM-D": ["34"], "USB-D": ["32"] } 
           }
         }      
       ],
