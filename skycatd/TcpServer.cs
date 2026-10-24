@@ -60,7 +60,6 @@ namespace skycatd
     }
 
     int NextId = 1;
-    private readonly object Lock = new();
 
     private void HandleClient(TcpClient client)
     {
@@ -74,21 +73,28 @@ namespace skycatd
 
       //writer.WriteLine("Welcome to skycatd. Type commands:");
 
-      string? line;
-      while ((line = reader.ReadLine()) != null)
+      try
       {
-        Logger.LogDebug($"Received from client #{id}: '{line}'");
+        string? line;
+        while ((line = reader.ReadLine()) != null)
+        {
+          Logger.LogDebug($"Received from client #{id}: '{line}'");
 
-        string response;
-        lock (Lock) response = Interpreter.Execute(line);
+          string response = Interpreter.Execute(line);
 
-        Logger.LogDebug($"  Replying to client #{id}: {AddDescription(response)}");
-        writer.Write(response + "\n");
+          Logger.LogDebug($"  Replying to client #{id}: {AddDescription(response)}");
+          writer.Write(response + "\n");
+        }
       }
+      // the connection was reset, e.g., the client was killed, or Stop() closed it
+      catch (Exception ex) when (ex is IOException or ObjectDisposedException) { }
 
       client.Close();
       ActiveClients.TryTake(out _);
       Logger.LogInformation($"Client  #{id} disconnected: {endPoint} ({ActiveClients.Count} connected clients)");
+
+      // the last client is gone, give the radio back to other programs
+      Interpreter.Teardown(onlyIf: () => ActiveClients.IsEmpty);
     }
 
     private string AddDescription(string response)

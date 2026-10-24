@@ -15,6 +15,7 @@ namespace SkyCat
   public enum CatCommand
   {
     setup,
+    teardown,
     read_rx_frequency,
     read_tx_frequency,
     read_rx_mode,

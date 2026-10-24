@@ -113,15 +113,17 @@
 
     "write_tx_mode": {
       "messages": [
+        { "command": ["53", "56", "3B"], "comment": "SV; swap A/B (FT-991A has no MD1 set — use Hamlib-style swap)" },
         {
-          "comment": "MD1<mode>; write TX mode",
-          "command": ["4D", "44", "31", null, "3B"],
+          "comment": "MD0<mode>; set mode on VFO A (currently holds VFO B data after swap)",
+          "command": ["4D", "44", "30", null, "3B"],
           "command_param": {
             "format": "enum",
             "values": { "LSB": ["31"], "USB": ["32"], "CW": ["33"],  "CW-R": ["37"], "AM": ["35"], "FM": ["34"],  "RTTY": ["36"], "RTTY-R": ["39"],
-                        "LSB-D": ["38"], "FM-D": ["41"], "FM-N": ["42"], "USB-D": ["43"], "AM-N": ["44"], "C4FM": ["45"] } 
+                        "LSB-D": ["38"], "FM-D": ["41"], "FM-N": ["42"], "USB-D": ["43"], "AM-N": ["44"], "C4FM": ["45"] }
           }
-        }
+        },
+        { "command": ["53", "56", "3B"], "comment": "SV; swap back — VFO B now has the new mode" }
       ]
     },
     

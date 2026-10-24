@@ -5,7 +5,7 @@ nav_order: 4
 
 # SkyCAT Commandset File Format
 
-_Updated: 2026-08-12_.
+_Updated: 2026-10-22_.
 
 [SkyCAT](skycat.md) stores the CAT commands of each supported radio in a separate file of type **.json**. The file name is the model name of the radio, for example, _"IC-9700.json"_ contains the commands of ICOM IC-9700. Support of new radio models may be added to SkyCAT by creating new command set files.
 
@@ -62,6 +62,7 @@ The values of the **duplex, split** and **simplex** fields are objects that have
 ```json
 {
     "setup": {... },
+    "teardown": {... },
     "read_rx_frequency": {... },
     "read_tx_frequency": {... },
     "read_rx_mode": {... },
@@ -86,6 +87,8 @@ Each field in the object describes the corresponding command. If the command is 
 ```
 
 However, some minimum set of commands should be present for the given operating mode to be useful. The software verifies that at least one command is not null.
+
+The **teardown** command is optional. skycatd sends it when the last client disconnects, when a client switches to another operating mode, and when skycatd exits, to undo the setup changes that would interfere with other programs, for example, to turn the CI-V Transceive function of an ICOM radio back on. It is never available to the clients. Mark it with the `when_setting_up` restriction, like **setup**.
 
 The last three commands are optional and control the **transmit CTCSS** (sub-audible / PL tone)
 encoder, used to access FM-repeater satellites such as SO-50. They act on the transmitter only,
