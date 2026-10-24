@@ -1,5 +1,5 @@
 {
-  "comment": "Corrections by Rocco IK8XLD, Tayler ZL2TAY and Luca EA8DJR",
+  "comment": "Corrections by Rocco IK8XLD, Tayler ZL2TAY, Luca EA8DJR, Max IV3ZXF",
   "id": 2014,
   "echo": false,
   "default_baud_rate": 57600,
@@ -377,7 +377,7 @@
         {
           "comment": "read TX frequency",
           "command": ["46", "41", "3B"], 
-          "reply": ["46", "42", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
+          "reply": ["46", "41", null, null, null, null, null, null, null, null, null, null, null, "3B"], 
           "reply_param": { "format": "text" }
         }
       ],
