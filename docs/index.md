@@ -3,7 +3,7 @@ title: SkyCAT
 nav_order: 1
 ---
 
-# SkyCAT 1.8
+# SkyCAT 1.9
 
 ## Overview
 
