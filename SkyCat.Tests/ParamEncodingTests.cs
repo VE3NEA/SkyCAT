@@ -158,6 +158,29 @@ namespace SkyCat.Tests
       Assert.Throws<ArgumentException>(() => Decode(param, new byte[] { 0x99 }));
     }
 
+    [Theory]
+    [InlineData(0x30, "OFF")]
+    [InlineData(0x31, "ON_CAT")]
+    [InlineData(0x32, "ON_RADIO")]
+    public void Ft991aReadPttDecodesAllThreeReplies(byte replyByte, string expected)
+    {
+      // the radio answers TX0; / TX1; / TX2; depending on whether PTT was keyed by CAT or by the radio itself
+      var sender = new CatCommandSender();
+      sender.SelectRadio("FT-991A");
+      var groups = new CatCommandGroup?[]
+        { sender.CommandSet.Duplex, sender.CommandSet.Split, sender.CommandSet.Simplex, sender.CommandSet.Transmitter, sender.CommandSet.Receiver };
+
+      int checkedCount = 0;
+      foreach (var group in groups)
+      {
+        if (group == null || !group.TryGetValue(CatCommand.read_ptt, out var info)) continue;
+        var param = info.Messages[0].ReplyParam!;
+        Assert.Equal(expected, Decode(param, new byte[] { replyByte }));
+        checkedCount++;
+      }
+      Assert.True(checkedCount > 0);
+    }
+
 
 
 

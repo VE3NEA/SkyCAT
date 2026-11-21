@@ -72,7 +72,7 @@
           "comment": "TX; read PTT",
           "command": ["54", "58", "3B"],
           "reply": ["54", "58", null, "3B"],
-          "reply_param": { "format": "enum", "values": { "ON": ["31"], "OFF": ["30"] } }
+          "reply_param": { "format": "enum", "values": { "ON_CAT": ["31"], "ON_RADIO": ["32"], "OFF": ["30"] } }
         }
       ]
     },
@@ -243,7 +243,7 @@
           "comment": "TX; read PTT",
           "command": ["54", "58", "3B"],
           "reply": ["54", "58", null, "3B"],
-          "reply_param": { "format": "enum", "values": { "ON": ["31"], "OFF": ["30"] } }
+          "reply_param": { "format": "enum", "values": { "ON_CAT": ["31"], "ON_RADIO": ["32"], "OFF": ["30"] } }
         }
       ]
     },

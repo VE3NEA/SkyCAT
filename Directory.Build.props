@@ -1,0 +1,10 @@
+<Project>
+
+  <!-- The single source of truth for the release version. Bump it here and nowhere else:
+       MSBuild applies it to every project in the solution automatically. -->
+  <PropertyGroup>
+    <Product>SkyCat</Product>
+    <Version>1.9</Version>
+  </PropertyGroup>
+
+</Project>

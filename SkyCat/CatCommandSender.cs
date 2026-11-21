@@ -231,7 +231,7 @@ namespace SkyCat
       else if (command == CatCommand.write_ptt_on) Transmitting = true;
       else if (command == CatCommand.read_ptt)
       {
-        Transmitting = returnedValue == "ON";
+        Transmitting = returnedValue?.StartsWith("ON") == true;
         returnedValue = Transmitting ? "1" : "0";
       }
 
